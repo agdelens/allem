@@ -2,13 +2,14 @@ const http = require('http');
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const pmx = require('@pm2/io');
+const { createHttpTerminator } = require('http-terminator');
 
 const app = new Koa();
 app.use(bodyParser());
 
 // Settings
-const HOST = process.env.HOST;
-const PORT = process.env.PORT;
+const HOST = process.env.HOST || '127.0.0.1';
+const PORT = process.env.PORT || 5000;
 
 app.use(async ctx => {
   console.log(JSON.stringify(ctx.request.body))
