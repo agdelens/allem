@@ -1,6 +1,7 @@
 const http = require('http');
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
+const pmx = require('@pm2/io');
 
 const app = new Koa();
 app.use(bodyParser());
@@ -14,8 +15,11 @@ app.use(async ctx => {
   ctx.body = { msg: 'Hello World' };
 });
 // Listen
-const httpServer = http.createServer(app.callback())
+const server = http
+  .createServer(app.callback())
   .listen(PORT, HOST, listeningReporter)
+
+const terminator = createHttpTerminator({ server });
 
 // A function that runs in the context of the http server
 // and reports what type of server listens on which port
@@ -24,4 +28,16 @@ function listeningReporter() {
   const { address, port } = this.address();
   const protocol = this.addContext ? 'https' : 'http';
   console.log(`Listening on ${protocol}://${address}:${port}...`);
+}
+
+pmx.action('exterminate', async reply => {
+  await terminator.terminate()
+  reply({ success: true });
+});
+
+
+
+graceful = () => {
+  console.log('Bye!')
+  process.exit()
 }
