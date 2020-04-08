@@ -27,7 +27,7 @@ function listeningReporter() {
   console.log(`Listening on ${protocol}://${address}:${port}...`);
 }
 
-pmx.action('exterminate');
+pmx.action('exterminate', exterminate);
 
 exterminate = async reply => {
   console.log('Exterminate, exterminate!')
