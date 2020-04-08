@@ -3,6 +3,7 @@
     {
       "name": "tst-api",
       "script": "./app.js",
+      "time": true,
       "env": {
         "PORT": 5000,
         "HOST": "localhost"
