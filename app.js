@@ -41,3 +41,6 @@ graceful = () => {
   console.log('Bye!')
   process.exit()
 }
+
+process.on('SIGTERM', graceful)
+process.on('SIGINT', graceful)
