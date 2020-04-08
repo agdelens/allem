@@ -38,7 +38,6 @@ const exterminate = async () => {
 
 const graceful = async reply => {
   await exterminate()
-  console.log(reply)
   reply({ success: true });
 }
 
